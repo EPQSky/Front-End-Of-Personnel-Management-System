@@ -14,10 +14,15 @@
         <el-input type="username" v-model="loginForm.username" autocomplete="off" placeholder="请输入用户名"></el-input>
       </el-form-item>
       <el-form-item size="normal" label="密码" prop="password">
-        <el-input size="normal" type="password" v-model="loginForm.password" autocomplete="off" placeholder="请输入密码"
-                  @keydown.enter.native="submitLogin"></el-input>
+        <el-input size="normal" type="password" v-model="loginForm.password" autocomplete="off"
+                  placeholder="请输入密码"></el-input>
       </el-form-item>
-
+      <el-form-item size="normal" label="验证码" prop="code">
+        <el-input size="normal" type="text" v-model="loginForm.code" autocomplete="off"
+                  placeholder="点击图片更换验证码"
+                  @keydown.enter.native="submitLogin"></el-input>
+        <img :src="vcUrl" @click="updateVerifyCode" alt="验证码">
+      </el-form-item>
       <el-button size="normal" class="loginButton" type="primary" @click="submitLogin" round>登陆</el-button>
     </el-form>
   </div>
@@ -31,9 +36,11 @@ export default {
   data() {
     return {
       loading: false,
+      vcUrl: 'verifyCode?time=' + new Date(),
       loginForm: {
         username: '',
-        password: ''
+        password: '',
+        code: ''
       },
       rules: {
         username: [{
@@ -48,10 +55,20 @@ export default {
           trigger: 'blur'
         }
         ]
+        ,
+        code: [{
+          required: true,
+          message: '请输入验证码',
+          trigger: 'blur'
+        }
+        ]
       }
     }
   },
   methods: {
+    updateVerifyCode() {
+      this.vcUrl = 'verifyCode?time=' + new Date();
+    },
     submitLogin() {
       this.$refs.loginForm.validate((valid) => {
         if (valid) {
@@ -94,5 +111,10 @@ export default {
   display: block;
   margin: 35px auto 20px auto;
   width: 300px;
+}
+
+.el-form-item__content {
+  display: flex;
+  align-items: center;
 }
 </style>
