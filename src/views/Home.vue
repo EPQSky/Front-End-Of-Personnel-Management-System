@@ -35,7 +35,8 @@
           </el-menu>
         </el-aside>
         <el-main>
-          <el-breadcrumb class="navigationHead" separator-class="el-icon-arrow-right" v-if="this.$router.currentRoute.path !== '/home'">
+          <el-breadcrumb class="navigationHead" separator-class="el-icon-arrow-right"
+                         v-if="this.$router.currentRoute.path !== '/home'">
             <el-breadcrumb-item :to="{ path: '/home' }">首页</el-breadcrumb-item>
             <el-breadcrumb-item>{{ this.$router.currentRoute.name }}</el-breadcrumb-item>
           </el-breadcrumb>
@@ -54,12 +55,15 @@ export default {
   name: 'Home',
   data() {
     return {
-      user: JSON.parse(window.sessionStorage.getItem('user'))
+      // user: JSON.parse(window.sessionStorage.getItem('user'))
     }
   },
   computed: {
     routes() {
       return this.$store.state.routes;
+    },
+    user() {
+      return this.$store.state.currentHr;
     }
   },
   methods: {
@@ -80,6 +84,8 @@ export default {
             message: '已取消注销'
           });
         });
+      } else if (cmd === 'userinfo') {
+        this.$router.push('/hrInfo');
       }
     }
   }
@@ -124,7 +130,7 @@ export default {
   align-items: center;
 }
 
-.homeWelcome{
+.homeWelcome {
   text-align: center;
   font-size: 30px;
   font-family: 华文行楷;
@@ -132,7 +138,7 @@ export default {
   padding-top: 50px;
 }
 
-.navigationHead{
+.navigationHead {
   margin-bottom: 15px;
 }
 
