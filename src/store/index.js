@@ -9,11 +9,11 @@ export default new Vuex.Store({
         currentHr: JSON.parse(window.sessionStorage.getItem('user'))
     },
     mutations: {
-        initCurrentHr(state, hr) {
-            state.currentHr = hr;
-        },
         initRoutes(state, data) {
             state.routes = data;
+        },
+        initCurrentHr(state, hr) {
+            state.currentHr = hr;
         }
     },
     actions: {}

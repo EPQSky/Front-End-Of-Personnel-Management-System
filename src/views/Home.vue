@@ -53,16 +53,11 @@
 <script>
 export default {
   name: 'Home',
-  data() {
-    return {
-      // user: JSON.parse(window.sessionStorage.getItem('user'))
-    }
-  },
   computed: {
     routes() {
       return this.$store.state.routes;
     },
-    user() {
+    user: function () {
       return this.$store.state.currentHr;
     }
   },
